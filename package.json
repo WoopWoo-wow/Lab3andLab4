@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/WoopWoo-wow/Lab3andLab4#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.3"
   }
 }
