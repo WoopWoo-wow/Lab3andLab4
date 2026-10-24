@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/Student');
+const requireAuth = require('../middleware/auth');
 
-// GET /students - Fetch all students
-router.get('/', async (req, res) => {
+// GET /students - Fetch all students (Protected)
+router.get('/', requireAuth, async (req, res) => {
   try {
     const students = await Student.find();
     res.json(students);
@@ -12,8 +13,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /students/:id - Fetch a single student
-router.get('/:id', async (req, res) => {
+// GET /students/:id - Fetch a single student (Protected)
+router.get('/:id', requireAuth, async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
     if (!student) {
@@ -25,8 +26,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /students - Create a new student
-router.post('/', async (req, res) => {
+// POST /students - Create a new student (Protected)
+router.post('/', requireAuth, async (req, res) => {
   try {
     const newStudent = await Student.create(req.body);
     res.status(201).json(newStudent);
@@ -35,8 +36,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /students/:id - Update a student
-router.put('/:id', async (req, res) => {
+// PUT /students/:id - Update a student (Protected)
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
@@ -52,8 +53,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /students/:id - Delete a student
-router.delete('/:id', async (req, res) => {
+// DELETE /students/:id - Delete a student (Protected)
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const deletedStudent = await Student.findByIdAndDelete(req.params.id);
     if (!deletedStudent) {
